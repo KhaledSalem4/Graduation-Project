@@ -1,69 +1,82 @@
+# Node.js E-Commerce API
 
-# BrightMind - E-Learning Platform
+## 📱 Project Overview
 
-## 📚 Project Overview
-
-**BrightMind** is a responsive, full-featured e-learning platform designed to offer interactive and engaging educational courses. The platform features a clean, modern user interface built with HTML5, CSS3, and JavaScript, providing a seamless learning experience across all devices.
+**Node.js E-Commerce API v1.0** is a robust, scalable REST API for a complete e-commerce platform. Built with Express.js and MongoDB, this API handles product management, user authentication, category management, reviews, and order processing. The application follows industry best practices with proper middleware implementation, error handling, and security measures.
 
 ---
 
 ## 🎯 Key Features
 
-### 📖 Course Management
-- Browse and filter courses by category (Web Development, Data Science, Design, Marketing)
-- View detailed course information (duration, student count, rating)
-- Dynamic course card display with interactive hover effects
-- Course enrollment functionality
+### 🔐 Authentication & Authorization
+- User registration and login with JWT tokens
+- Password hashing using bcrypt
+- Role-based access control
+- Token validation middleware
+- Secure session management
 
-### 🏠 User Interface Pages
+### 📦 Product Management
+- Complete CRUD operations for products
+- Product categorization and subcategories
+- Product filtering and search functionality
+- Product ratings and reviews system
+- Stock management
+- Product image handling
 
-#### **Home Page** (`index.html`)
-- Eye-catching hero section with call-to-action
-- Featured courses showcase
-- Platform statistics and impact metrics
-- User testimonials section
-- Course registration form with validation
+### 🏪 Category Management
+- Main categories and subcategories
+- Category hierarchy
+- Category-based product filtering
+- Category metadata
 
-#### **Courses Page** (`courses.html`)
-- Complete course catalog with grid layout
-- Real-time filtering by course category
-- Detailed course cards with:
-  - Course title and description
-  - Duration and student count
-  - Star ratings
-  - Enroll buttons
+### ⭐ Review & Rating System
+- User reviews and ratings for products
+- Review moderation
+- Average rating calculation
+- Review pagination
 
-#### **About Page** (`about.html`)
-- Platform vision and mission statements
-- Core values presentation
-- Key success metrics and statistics
-- Team member profiles
-- Partner and trainer information
+### 🛒 Shopping Features
+- Shopping cart management
+- Order management
+- Order history
+- Payment integration (Stripe support)
+- Order status tracking
 
-#### **Contact Page** (`contact.html`)
-- Contact form with client-side validation
-- Email, phone, and location information
-- Interactive location map
-- Social media links
-- Frequently Asked Questions (FAQ) section
+### 👥 User Management
+- User profile management
+- User authentication
+- Password reset functionality
+- User preferences
+- Address management
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend Technologies
-- **HTML5** - Semantic markup and page structure
-- **CSS3 & SCSS** - Modern styling with custom variables and responsive design
-- **JavaScript (ES6+)** - Interactive features and DOM manipulation
-- **Bootstrap 5.3.0** - Responsive grid system and pre-built components
-- **Font Awesome 6** - Icon library for enhanced UI
-- **Google Fonts** - Professional typography
-
-### Build & Development
+### Backend Technologies
 - **Node.js** - JavaScript runtime
-- **NPM** - Package management
-- **Angular Setup** (prepared for future upgrades)
-- **TypeScript Configuration** (prepared for advanced features)
+- **Express.js** - Web framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB ODM
+- **JWT** - Authentication tokens
+- **Bcrypt** - Password hashing
+- **Stripe** - Payment processing
+
+### Middleware & Tools
+- **Express Async Handler** - Async error handling
+- **Express Rate Limit** - API rate limiting
+- **Express Validator** - Input validation
+- **Compression** - Response compression
+- **CORS** - Cross-Origin Resource Sharing
+- **Morgan** - HTTP request logging
+- **Multer** - File upload handling
+- **Sharp** - Image processing
+- **Nodemailer** - Email notifications
+
+### Development Tools
+- **Nodemon** - Auto-restart on file changes
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
 
 ---
 
@@ -72,74 +85,95 @@
 ```
 Graduation-Project/
 ├── config/              # Configuration files
-├── middlewares/         # Express middleware components
-├── models/              # Data models (if applicable)
+│   ├── database.js      # MongoDB connection
+│   └── config.env       # Environment variables
+├── middlewares/         # Express middleware
+│   ├── errorMiddleware.js
+│   ├── authMiddleware.js
+│   └── validationMiddleware.js
+├── models/              # Mongoose schemas
+│   ├── User.js
+│   ├── Product.js
+│   ├── Category.js
+│   ├── SubCategory.js
+│   ├── Review.js
+│   └── Order.js
 ├── routes/              # API route definitions
-├── services/            # Business logic services
-├── utils/               # Utility functions and helpers
-├── prodact-api/         # Product API integration
-├── index.html           # Home page
-├── courses.html         # Courses page
-├── about.html           # About page
-├── contact.html         # Contact page
-├── server.js            # Node.js server entry point
-├── package.json         # Dependencies and scripts
-├── README.md            # Project documentation (this file)
-└── .gitignore           # Git ignore rules
+│   ├── authRoute.js
+│   ├── productRoute.js
+│   ├── categoryRoute.js
+│   ├── subCategoryRoute.js
+│   ├── reviewRoute.js
+│   ├── userRoute.js
+│   └── index.js
+├── services/            # Business logic
+│   ├── productService.js
+│   ├── userService.js
+│   ├── orderService.js
+│   └── paymentService.js
+├── utils/               # Helper functions
+│   ├── validators.js
+│   ├── errorHandler.js
+│   └── apiFeatures.js
+├── server.js            # Entry point
+├── package.json         # Dependencies
+├── package-lock.json    # Lock file
+├── .gitignore           # Git ignore rules
+└── README.md            # Documentation
 ```
 
 ---
 
-## 🎨 Design & Responsiveness
+## 🚀 API Endpoints
 
-### Responsive Breakpoints
-- ✅ Mobile (< 576px)
-- ✅ Tablet (576px - 992px)
-- ✅ Desktop (> 992px)
+### Authentication Routes (`/api/auth`)
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `POST /api/auth/logout` - User logout
+- `POST /api/auth/forgotPassword` - Request password reset
+- `PUT /api/auth/resetPassword/:token` - Reset password
 
-### Design Features
-- Custom CSS variables for consistent theming
-- Smooth animations and transitions
-- Interactive hover effects
-- Accessible navigation with semantic HTML
-- Mobile-first responsive approach
+### Product Routes (`/api/products`)
+- `GET /api/products` - Get all products with filtering
+- `GET /api/products/:id` - Get product details
+- `POST /api/products` - Create new product (Admin)
+- `PUT /api/products/:id` - Update product (Admin)
+- `DELETE /api/products/:id` - Delete product (Admin)
+
+### Category Routes (`/api/categories`)
+- `GET /api/categories` - Get all categories
+- `GET /api/categories/:id` - Get category details
+- `POST /api/categories` - Create category (Admin)
+- `PUT /api/categories/:id` - Update category (Admin)
+- `DELETE /api/categories/:id` - Delete category (Admin)
+
+### SubCategory Routes (`/api/subcategories`)
+- `GET /api/subcategories` - Get all subcategories
+- `POST /api/subcategories` - Create subcategory (Admin)
+- `PUT /api/subcategories/:id` - Update subcategory (Admin)
+- `DELETE /api/subcategories/:id` - Delete subcategory (Admin)
+
+### Review Routes (`/api/reviews`)
+- `GET /api/reviews` - Get all reviews
+- `POST /api/reviews` - Create review
+- `PUT /api/reviews/:id` - Update review
+- `DELETE /api/reviews/:id` - Delete review
+
+### User Routes (`/api/users`)
+- `GET /api/users/profile` - Get user profile
+- `PUT /api/users/profile` - Update user profile
+- `GET /api/users` - Get all users (Admin)
+- `DELETE /api/users/:id` - Delete user (Admin)
 
 ---
 
-## 🚀 Functionality
-
-### JavaScript Features
-
-#### Navigation
-- Sticky/smooth navbar behavior on scroll
-- Mobile menu toggle functionality
-- Active page indicator
-
-#### Course Filtering
-- Dynamic category-based filtering
-- Real-time course display/hide
-- Filter state persistence
-
-#### Form Validation
-- Client-side validation for contact and registration forms
-- Custom error messages
-- Success feedback
-- Email format validation
-
-#### User Experience
-- Smooth scroll animations
-- On-scroll element animations
-- Loading states
-- Interactive testimonial carousel
-
----
-
-## 📦 Installation & Setup
+## 🔧 Installation & Setup
 
 ### Prerequisites
 - Node.js (v14 or higher)
 - NPM or Yarn
-- Modern web browser
+- MongoDB (local or Atlas)
+- Git
 
 ### Installation Steps
 
@@ -153,33 +187,130 @@ cd Graduation-Project
 # Install dependencies
 npm install
 
-# Start the development server
-node server.js
+# Create .env file in root directory
+cp config/config.env .env
 
-# The application will be available at http://localhost:3000
+# Configure environment variables
+# Edit .env with your MongoDB URI and other configs
+
+# Start development server with nodemon
+npm run start:dev
+
+# Start production server
+NODE_ENV=production npm start
+
+# The API will be available at http://localhost:3000
 ```
 
 ---
 
-## 🔧 Configuration
+## ⚙️ Configuration
 
-### Environment Variables
-Create a `.env` file in the root directory (if needed):
+Create a `.env` file in the root directory with the following variables:
 
 ```env
+# Server
 PORT=3000
 NODE_ENV=development
+
+# Database
+DB_URI=mongodb://localhost:27017/ecommerce
+DB_NAME=ecommerce
+
+# JWT
+JWT_SECRET=your_jwt_secret_key_here
+JWT_EXPIRE=7d
+JWT_COOKIE_EXPIRE=7
+
+# Email Configuration
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+
+# Payment Gateway (Stripe)
+STRIPE_API_KEY=your_stripe_api_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+
+# Cloudinary (for image upload)
+CLOUDINARY_NAME=your_cloudinary_name
+CLOUDINARY_KEY=your_cloudinary_key
+CLOUDINARY_SECRET=your_cloudinary_secret
+
+# Admin Email
+ADMIN_EMAIL=admin@ecommerce.com
 ```
 
 ---
 
-## 📱 Browser Support
+## 📊 Database Models
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+### User Schema
+- name, email, password
+- phone, address
+- role (user/admin)
+- profilePicture
+- isActive, createdAt, updatedAt
+
+### Product Schema
+- name, description, price
+- category, subcategory
+- images, stock
+- rating, reviews
+- createdAt, updatedAt
+
+### Category Schema
+- name, description
+- icon, slug
+- createdAt, updatedAt
+
+### Order Schema
+- user, products
+- totalPrice, paymentStatus
+- orderStatus, deliveryDate
+- createdAt, updatedAt
+
+### Review Schema
+- product, user
+- rating, comment
+- createdAt, updatedAt
+
+---
+
+## 🔒 Security Features
+
+- ✅ JWT-based authentication
+- ✅ Password hashing with bcrypt
+- ✅ CORS enabled for specific origins
+- ✅ Rate limiting on API endpoints
+- ✅ Input validation and sanitization
+- ✅ SQL/NoSQL injection prevention
+- ✅ XSS protection
+- ✅ HTTPS ready
+- ✅ Environment variable protection
+
+---
+
+## 🧪 Testing
+
+### Manual Testing with Postman
+1. Import the API collection in Postman
+2. Configure environment variables
+3. Run requests against localhost:3000
+
+### API Documentation
+- Full API documentation available at `/api/docs` (if Swagger is integrated)
+
+---
+
+## 📈 Performance Optimization
+
+- ✅ Database indexing on frequently queried fields
+- ✅ Response compression using gzip
+- ✅ Pagination for large datasets
+- ✅ Caching strategies
+- ✅ Async/await for non-blocking operations
+- ✅ Rate limiting to prevent abuse
 
 ---
 
@@ -193,28 +324,45 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+### Development Guidelines
+- Follow existing code style
+- Write meaningful commit messages
+- Test your changes thoroughly
+- Update documentation as needed
+
 ---
 
 ## 📝 Future Enhancements
 
-- [ ] User authentication system (Login/Register)
-- [ ] User profile management
-- [ ] Course progress tracking
-- [ ] Interactive video player integration
-- [ ] Quiz and assessment system
-- [ ] Certificate generation
-- [ ] Payment gateway integration
-- [ ] Admin dashboard with course management
-- [ ] Email notifications
-- [ ] Advanced search and filtering
-- [ ] Comments and discussion forums
-- [ ] Mobile app version
+- [ ] Admin dashboard frontend
+- [ ] Advanced analytics and reporting
+- [ ] Recommendation engine using ML
+- [ ] Real-time notifications with WebSocket
+- [ ] Multi-language support (i18n)
+- [ ] Mobile app integration
+- [ ] Inventory management system
+- [ ] Affiliate program
+- [ ] SMS notifications
+- [ ] Advanced search with Elasticsearch
+- [ ] Wishlist functionality
+- [ ] Product comparison feature
+
+---
+
+## 🐛 Bug Reports
+
+Found a bug? Please open an issue on GitHub with:
+- Description of the bug
+- Steps to reproduce
+- Expected behavior
+- Actual behavior
+- Screenshots (if applicable)
 
 ---
 
 ## 📄 License
 
-This project is open source and available under the MIT License. See the LICENSE file for more details.
+This project is open source and available under the ISC License.
 
 ---
 
@@ -222,28 +370,30 @@ This project is open source and available under the MIT License. See the LICENSE
 
 **Khaled Salem**
 - GitHub: [@KhaledSalem4](https://github.com/KhaledSalem4)
-- Portfolio: [Your Portfolio Link]
-- LinkedIn: [Your LinkedIn Profile]
+- Email: khaledmostafa4044@gmail.com
+- Location: Port Said, Egypt
 
 ---
 
-## 📧 Contact & Support
+## 📞 Support
 
-For questions, suggestions, or issues:
+For support and questions:
 - Open an issue on GitHub
-- Contact via email: [your-email@example.com]
-- Visit the Contact page on the platform
+- Email: khaledmostafa4044@gmail.com
+- Check the documentation wiki
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Bootstrap team for the CSS framework
-- Font Awesome for the icon library
-- Google Fonts for typography
-- All contributors and testers
+- Express.js team for the excellent framework
+- MongoDB for the database
+- Stripe for payment processing
+- All open-source contributors
+- Community feedback and support
 
 ---
 
-**Last Updated:** January 2025
+**Last Updated:** January 5, 2026
 **Version:** 1.0.0
+**Status:** Active Development
